@@ -150,9 +150,9 @@ public class SudokuBoard implements Sudoku {
 
 	@Override
 	public boolean allFilledPlaces() {
-		return (quantityOfFilledPlaces>=81) ? true : false;
+		return (getQuantityOfFilledPlaces()>=81) ? true : false;
 	}
-
+	
 	@Override
 	public boolean checkPlay(int play, int x, int y) {
 		return false;
@@ -161,6 +161,4 @@ public class SudokuBoard implements Sudoku {
 	public int[][] generateNewBoard(int dificulty) {
 		return null;
 	}
-
-	
 }

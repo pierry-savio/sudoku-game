@@ -11,7 +11,8 @@ public class Program {
 		Scanner scan = new Scanner(System.in);
 		SudokuBoard sb = new SudokuBoard(5);
 		
-		while (true) {
+		for (int i = 0; i<100; i++) {
+			cleanScreen();
 			sb.showBoard();
 			System.out.println("Todos os campos preenchidos? " + sb.allFilledPlaces());
 			System.out.println("Campos vazios: " + sb.getQuantityOfEmptyPlaces());
@@ -26,5 +27,14 @@ public class Program {
 			int y = scan.nextInt();
 			sb.play(play, s, x, y);
 		}
+		scan.close();
+	}
+	
+	public static void cleanScreen() {
+		for(int i = 0; i<40; i++) {System.out.println();}
+	}
+	
+	public static void clanScreen(int lines) {
+		for(int i = 0; i<lines; i++) {System.out.println();}
 	}
 }
