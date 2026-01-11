@@ -12,7 +12,7 @@ public class Program2 {
 		Random rand = new Random();
 		
 		while (sb.allFilledPlaces() == false) {
-			cleanScreen();
+			System.out.println();
 			int play = rand.nextInt(1,10);
 			int s = rand.nextInt(0,9);
 			int x = rand.nextInt(0,3);
@@ -27,7 +27,6 @@ public class Program2 {
 			sb.play(play, s, x, y);
 			System.out.println("      S U D O K U");
 			sb.showBoard();
-			Thread.sleep(40);
 			
 		}
 		System.out.println("Casas preenchidas: " + sb.getQuantityOfFilledPlaces());
