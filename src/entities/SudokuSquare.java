@@ -4,38 +4,37 @@ public class SudokuSquare implements Sudoku {
 
 	private int[][] board = new int[3][3];
 	
-	private int filledPlaces;
-	private int emptyPlaces;
+	private int quantityOfFilledPlaces;
+	private int quantityOfEmptyPlaces;
 	
 	public SudokuSquare() {
-		emptyPlaces = 9;
-		filledPlaces = 9 - emptyPlaces;
+		quantityOfEmptyPlaces = 9;
+		quantityOfFilledPlaces = 9 - quantityOfEmptyPlaces;
 	}
 	
 	public SudokuSquare(int[][] board) {
 		this.board = board;
-		emptyPlaces = 9;
-		filledPlaces = 9 - emptyPlaces;
+		quantityOfEmptyPlaces = 9;
+		quantityOfFilledPlaces = 9 - quantityOfEmptyPlaces;
 	}
 
 	public int[][] getBoard(){
 		return board;
 	}
 	
-	public int getFilledPlaces() {
-		filledPlaces = 9 - emptyPlaces;
-		return filledPlaces;
+	public int getQuantityOfFilledPlaces() {
+		quantityOfFilledPlaces = 9 - quantityOfEmptyPlaces;
+		return quantityOfFilledPlaces;
 	}
 
-	public int getEmptyPlaces() {
-		return emptyPlaces;
+	public int getQuantityOfEmptyPlaces() {
+		return quantityOfEmptyPlaces;
 	}
 
-	@Override
 	public void play(int play, int square, int x, int y) {
 		if (checkPlay(play, x, y)) { 
 			board[y][x] = play;
-			emptyPlaces--;
+			quantityOfEmptyPlaces--;
 		}
 	}
 
@@ -63,7 +62,6 @@ public class SudokuSquare implements Sudoku {
 		System.out.println(result);
 	}
 
-	@Override
 	public boolean emptyPlace(int x, int y) {
 		return (board[y][x] == 0) ? true : false;
 	}

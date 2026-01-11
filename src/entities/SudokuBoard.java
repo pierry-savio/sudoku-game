@@ -5,68 +5,59 @@ import java.util.List;
 
 public class SudokuBoard implements Sudoku {
 
-	private int filledPlaces;
-	private int emptyPlaces;
+	private int quantityOfFilledPlaces;
+	private int quantityOfEmptyPlaces;
 
 	public List<SudokuSquare> squares = new ArrayList<>();
 	
 	public SudokuBoard(int dificulty) {
 		
-		squares.add(new SudokuSquare());
-		squares.add(new SudokuSquare());
-		squares.add(new SudokuSquare());
-		
-		squares.add(new SudokuSquare());
-		squares.add(new SudokuSquare());
-		squares.add(new SudokuSquare());
-		
-		squares.add(new SudokuSquare());
-		squares.add(new SudokuSquare());
-		squares.add(new SudokuSquare());
-		
-		emptyPlaces = dificulty * 5;
-		filledPlaces = 81 - emptyPlaces;
+		for (int i = 0; i<9; i++) {
+			squares.add(new SudokuSquare());
+		}
+		quantityOfEmptyPlaces = getQuantityOfEmptyPlaces();
+		quantityOfFilledPlaces = getQuantityOfFilledPlaces();
 	}
 	
-	@Override
-	public void play(int play, int square, int x, int y) {
-		switch (square){
-			case 0:
-				squares.get(square).play(play, square, x, y);
-			break;
+	public int getQuantityOfFilledPlaces() {
+		
+		quantityOfFilledPlaces = 0;
+		
+		for (int i = 0; i<squares.size(); i++) {
 			
-			case 1:
-				squares.get(square).play(play, square, x, y);
-			break;
-			
-			case 2:
-				squares.get(square).play(play, square, x, y);
-			break;
-			
-			case 3:
-				squares.get(square).play(play, square, x, y);
-			break;
-			
-			case 4:
-				squares.get(square).play(play, square, x, y);
-			break;
-			
-			case 5:
-				squares.get(square).play(play, square, x, y);
-			break;
-			
-			case 6:
-				squares.get(square).play(play, square, x, y);
-			break;
-			
-			case 7:
-				squares.get(square).play(play, square, x, y);
-			break;
-			
-			case 8:
-				squares.get(square).play(play, square, x, y);
-			break;
+			for (int j = 0; j<squares.get(i).getBoard().length; j++) {
+				
+				for (int z = 0; z<squares.get(i).getBoard()[0].length; z++) {
+					if (squares.get(i).getBoard()[j][z] != 0) {
+						quantityOfFilledPlaces++;
+					}
+				}
+			}
 		}
+		return quantityOfFilledPlaces;
+	}
+
+	public int getQuantityOfEmptyPlaces() {
+		
+		quantityOfEmptyPlaces = 0;
+		
+		for (int i = 0; i<squares.size(); i++) {
+			
+			for (int j = 0; j<squares.get(i).getBoard().length; j++) {
+				
+				for (int z = 0; z<squares.get(i).getBoard()[0].length; z++) {
+					if (squares.get(i).getBoard()[j][z] == 0) {
+						quantityOfEmptyPlaces++;
+					}
+				}
+			}
+		}
+		
+		return quantityOfEmptyPlaces;
+	}
+
+	public void play(int play, int square, int x, int y) {
+		squares.get(square).play(play, square, y, x);
 	}
 
 	@Override
@@ -153,14 +144,13 @@ public class SudokuBoard implements Sudoku {
 		}
 	}
 
-	@Override
-	public boolean emptyPlace(int x, int y) {
-		return false;
+	public boolean emptyPlace(int square, int x, int y) {
+		return squares.get(square).emptyPlace(y, x);
 	}
 
 	@Override
 	public boolean allFilledPlaces() {
-		return false;
+		return (quantityOfFilledPlaces>=81) ? true : false;
 	}
 
 	@Override
@@ -172,4 +162,5 @@ public class SudokuBoard implements Sudoku {
 		return null;
 	}
 
+	
 }
