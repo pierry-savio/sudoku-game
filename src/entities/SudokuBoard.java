@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class SudokuBoard implements Sudoku {
 
@@ -216,5 +217,37 @@ public class SudokuBoard implements Sudoku {
 		return check;
 	}
 	
-	public void generateNewBoard(int dificulty) {}
+	public void generateNewBoard(int dificulty) {
+		
+		Random rand = new Random();
+		
+		for (int z = 1; z<10; z++) {
+		
+			int number = z;
+			int firstXposition = rand.nextInt(0,3);
+			int firstYposition = rand.nextInt(0,3);
+			
+			while(
+				   squares.get(0).checkPlay(number, firstXposition, firstYposition) == false 
+				 )
+			{
+				firstXposition = rand.nextInt(0,3);
+				firstYposition = rand.nextInt(0,3);
+			}
+
+			play(number, 0, firstXposition, firstYposition);
+			
+			for (int s = 0; s<9; s++) {
+			
+				for (int y = 0; y<3; y++) {
+					
+					for (int x = 0; x<3; x++) {
+						if (checkPlay(number, s, x, y) && squares.get(s).checkPlay(number, x, y)) {
+							play(number, s, x, y);
+						}
+					}
+				}
+			}
+		}
+	}
 }
