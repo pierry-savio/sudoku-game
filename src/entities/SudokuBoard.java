@@ -57,7 +57,9 @@ public class SudokuBoard implements Sudoku {
 	}
 
 	public void play(int play, int square, int x, int y) {
-		squares.get(square).play(play, square, y, x);
+		if (checkPlay(play, square, x, y)) {
+			squares.get(square).play(play, square, y, x);
+		}
 	}
 
 	@Override
@@ -153,12 +155,66 @@ public class SudokuBoard implements Sudoku {
 		return (getQuantityOfFilledPlaces()>=81) ? true : false;
 	}
 	
-	@Override
-	public boolean checkPlay(int play, int x, int y) {
-		return false;
+	public boolean checkPlay(int play, int square, int x, int y) {
+		return (checkXPlay(play, square, y) && checkYPlay(play, square, x)) ? true : false;
 	}
 
-	public int[][] generateNewBoard(int dificulty) {
-		return null;
+	public boolean checkXPlay(int play, int square, int y) {
+		
+		boolean check = true;
+		
+		//x check
+		for (int i = 0; i<3; i++) {
+			for (int j = 0; j<3; j++) {
+				//up
+				if (square == 0 || square == 1 || square == 2) {
+					if (squares.get(i).getBoard()[j][y] == play) {
+						return false;
+					}
+				}//middle
+				else if (square == 3 || square == 4 || square == 5) {
+					if (squares.get(i+3).getBoard()[j][y] == play) {
+						return false;
+					}
+				}//down
+				else if (square == 6 || square == 7 || square == 8){
+					if (squares.get(i+6).getBoard()[j][y] == play) {
+						return false;
+					}
+				}
+			}
+		}
+		
+		return check;
 	}
+	
+	public boolean checkYPlay(int play, int square, int x) {
+		
+		boolean check = true;
+		
+		for (int i = 0; i<3; i++) {
+			for (int j = 0; j<3; j++) {
+				//left
+				if (square == 0 || square == 3 || square == 6) {
+					if (squares.get(i*3).getBoard()[x][j] == play) {
+						return false;
+					}
+				}//middle
+				else if (square == 1 || square == 4 || square == 7) {
+					if (squares.get(i*3+1).getBoard()[x][j] == play) {
+						return false;
+					}
+				}//right
+				else if (square == 2 || square == 5 || square == 8){
+					if (squares.get(i*3+2).getBoard()[x][j] == play) {
+						return false;
+					}
+				}
+			}
+		}
+		
+		return check;
+	}
+	
+	public void generateNewBoard(int dificulty) {}
 }

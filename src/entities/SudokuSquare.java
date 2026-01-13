@@ -93,7 +93,6 @@ public class SudokuSquare implements Sudoku {
 		return true;
 	}
 
-	@Override
 	public boolean checkPlay(int play, int x, int y) {
 		if (emptyPlace(x,y) && numberAlreadyUsed(play)==false) {
 			return true;

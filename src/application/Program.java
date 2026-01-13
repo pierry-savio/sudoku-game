@@ -10,20 +10,25 @@ public class Program {
 
 		Scanner scan = new Scanner(System.in);
 		SudokuBoard sb = new SudokuBoard(5);
+		sb.generateNewBoard(5);
 		
 		for (int i = 0; i<100; i++) {
 			cleanScreen();
 			sb.showBoard();
-			System.out.println("Todos os campos preenchidos? " + sb.allFilledPlaces());
-			System.out.println("Campos vazios: " + sb.getQuantityOfEmptyPlaces());
-			System.out.println("Campos preenchidos: " + sb.getQuantityOfFilledPlaces());
-			System.out.print("Play: ");
+			System.out.println();
+			System.out.print("   Play: ");
 			int play = scan.nextInt();
-			System.out.print("s: ");
+			cleanScreen();
+			sb.showBoard();
+			System.out.println();
+			System.out.print("   s: ");
 			int s = scan.nextInt();
-			System.out.print("x: ");
+			cleanScreen();
+			sb.showBoard();
+			System.out.println();
+			System.out.print("   x: ");
 			int x = scan.nextInt();
-			System.out.print("y: ");
+			System.out.print("   y: ");
 			int y = scan.nextInt();
 			sb.play(play, s, x, y);
 		}
