@@ -9,8 +9,11 @@ public class Program {
 	public static void main(String[] args) {
 
 		Scanner scan = new Scanner(System.in);
-		SudokuBoard sb = new SudokuBoard(5);
-		sb.generateNewBoard(5);
+		
+		System.out.print("Dificulty: ");
+		int dificulty = scan.nextInt();
+		cleanScreen();
+		SudokuBoard sb = new SudokuBoard(dificulty);
 		
 		for (int i = 0; i<100; i++) {
 			cleanScreen();
