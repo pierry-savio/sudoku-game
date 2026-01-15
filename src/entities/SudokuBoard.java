@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class SudokuBoard implements Sudoku {
 
@@ -9,6 +10,16 @@ public class SudokuBoard implements Sudoku {
 	private int quantityOfEmptyPlaces;
 
 	public List<SudokuSquare> squares = new ArrayList<>();
+	
+	public SudokuBoard() {
+		
+		for (int i = 0; i<9; i++) {
+			squares.add(new SudokuSquare());
+		}
+		quantityOfEmptyPlaces = getQuantityOfEmptyPlaces();
+		quantityOfFilledPlaces = getQuantityOfFilledPlaces();
+		generateNewBoard(5);
+	}
 	
 	public SudokuBoard(int dificulty) {
 		
@@ -218,7 +229,56 @@ public class SudokuBoard implements Sudoku {
 	}
 	
 	public void generateNewBoard(int difficulty) {
+		
+		Random rand = new Random();
+		List <Integer> usedNumbers = new ArrayList<>();
+		
+		//CLEAN BOARD
 		cleanBoard();
+		
+		//FILL BOARD
+		for (int n = 1; n<=9; n++) {
+		
+			int number = rand.nextInt(1,10);
+			
+			while(usedNumbers.contains(number)) {
+				number = rand.nextInt(1,10);
+			}
+			
+			for (int i = 0; i<9; i++) {
+				int[] nextAvailablePositon = nextAvailablePosition(number);
+				
+				if (nextAvailablePositon[0] != 9) {
+					play(number, nextAvailablePositon[0], nextAvailablePositon[1], nextAvailablePositon[2]);
+				}
+			}
+			usedNumbers.add(number);
+		}
+		
+		//REMOVE SOME NUMBERS
+		removeRandomNumber(50);
+	}
+	
+	public int[] nextAvailablePosition(int play) {
+		
+		//{9,9,9} represents null
+		int[] result = {9,9,9};
+		
+		for (int y = 0; y<3; y++) {
+		
+			for (int s = 0; s<9; s++) {
+			
+				for (int x = 0; x<3; x++) {
+					if (emptyPlace(s, x, y) && squares.get(s).checkPlay(play, x, y) && checkPlay(play, s, x, y)) {
+						result[0] = s;
+						result[1] = x;
+						result[2] = y;
+						return result;
+					}
+				}	
+			}	
+		}
+		return result;
 	}
 	
 	public void cleanBoard() {
@@ -229,6 +289,39 @@ public class SudokuBoard implements Sudoku {
 	            }
 	        }
 	    }
+	}
+	
+	public void removeRandomNumber(int quantity) {
+		
+		Random rand = new Random();
+		
+		List <Integer[]> alredyRemoved = new ArrayList<>();
+		
+		for (int i = 0; i<quantity; i++) {
+			
+			int s = rand.nextInt(0, 9);
+			int x = rand.nextInt(0, 3);
+			int y = rand.nextInt(0, 3);
+			
+			Integer[] position = new Integer[3];
+			position[0] = s;
+			position[1] = x;
+			position[2] = y;
+			
+			while (alredyRemoved.contains(position)) {
+				s = rand.nextInt(0, 9);
+				x = rand.nextInt(0, 3);
+				y = rand.nextInt(0, 3);
+				
+				position = new Integer[3];
+				position[0] = s;
+				position[1] = x;
+				position[2] = y;
+			}
+			
+			removeNumber(s, x, y);
+			alredyRemoved.add(position);
+		}
 	}
 	
 	public void removeNumber(int s, int x, int y) {
