@@ -160,7 +160,7 @@ public class SudokuBoard implements Sudoku {
 		return (checkXPlay(play, square, y) && checkYPlay(play, square, x)) ? true : false;
 	}
 
-	public boolean checkXPlay(int play, int square, int y) {
+	private boolean checkXPlay(int play, int square, int y) {
 		
 		boolean check = true;
 		
@@ -189,7 +189,7 @@ public class SudokuBoard implements Sudoku {
 		return check;
 	}
 	
-	public boolean checkYPlay(int play, int square, int x) {
+	private boolean checkYPlay(int play, int square, int x) {
 		
 		boolean check = true;
 		
@@ -218,7 +218,10 @@ public class SudokuBoard implements Sudoku {
 	}
 	
 	public void generateNewBoard(int difficulty) {
-		
+		cleanBoard();
+	}
+	
+	public void cleanBoard() {
 	    for (int s = 0; s<9; s++) {
 	        for (int y = 0; y < 3; y++) {
 	            for (int x = 0; x < 3; x++) {
