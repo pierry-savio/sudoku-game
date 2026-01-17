@@ -256,7 +256,7 @@ public class SudokuBoard implements Sudoku {
 		}
 		
 		//REMOVE SOME NUMBERS
-		removeRandomNumber(50);
+		removeRandomNumber(difficulty*8);
 	}
 	
 	public int[] nextAvailablePosition(int play) {
@@ -295,7 +295,7 @@ public class SudokuBoard implements Sudoku {
 		
 		Random rand = new Random();
 		
-		List <Integer[]> alredyRemoved = new ArrayList<>();
+		List <Integer[]> alreadyRemoved = new ArrayList<>();
 		
 		for (int i = 0; i<quantity; i++) {
 			
@@ -308,19 +308,23 @@ public class SudokuBoard implements Sudoku {
 			position[1] = x;
 			position[2] = y;
 			
-			while (alredyRemoved.contains(position)) {
-				s = rand.nextInt(0, 9);
-				x = rand.nextInt(0, 3);
-				y = rand.nextInt(0, 3);
-				
-				position = new Integer[3];
-				position[0] = s;
-				position[1] = x;
-				position[2] = y;
+			for (int z = 0; z<alreadyRemoved.size(); z++) {
+				for (int v = 0; v<3; v++) {
+					while (alreadyRemoved.get(z)[v] == position[v]) {
+						s = rand.nextInt(0, 9);
+						x = rand.nextInt(0, 3);
+						y = rand.nextInt(0, 3);
+						
+						position = new Integer[3];
+						position[0] = s;
+						position[1] = x;
+						position[2] = y;
+					}
+				}
 			}
 			
 			removeNumber(s, x, y);
-			alredyRemoved.add(position);
+			alreadyRemoved.add(position);
 		}
 	}
 	
