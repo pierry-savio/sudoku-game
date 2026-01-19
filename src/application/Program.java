@@ -10,7 +10,7 @@ public class Program {
 
 		Scanner scan = new Scanner(System.in);
 		
-		System.out.print("Dificulty: ");
+		System.out.print("Dificulty (1-10): ");
 		int dificulty = scan.nextInt();
 		cleanScreen();
 		SudokuBoard sb = new SudokuBoard(dificulty);

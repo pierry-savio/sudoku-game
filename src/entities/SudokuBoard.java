@@ -106,9 +106,7 @@ public class SudokuBoard implements Sudoku {
 		lines[2] += "|" + square3[0][2] + "|" + square3[1][2] + "|" + square3[2][2] + "|";
 		lines[2] = lines[2].replace("0", "_");
 		
-		
-		
-		
+
 		lines[3] = "|" + square4[0][0] + "|" + square4[1][0] + "|" + square4[2][0] + "| ";
 		lines[3] += "|" + square5[0][0] + "|" + square5[1][0] + "|" + square5[2][0] + "| ";
 		lines[3] += "|" + square6[0][0] + "|" + square6[1][0] + "|" + square6[2][0] + "|";
@@ -123,10 +121,6 @@ public class SudokuBoard implements Sudoku {
 		lines[5] += "|" + square5[0][2] + "|" + square5[1][2] + "|" + square5[2][2] + "| ";
 		lines[5] += "|" + square6[0][2] + "|" + square6[1][2] + "|" + square6[2][2] + "|";
 		lines[5] = lines[5].replace("0", "_");
-		
-		
-		
-		
 		
 		
 		lines[6] = "|" + square7[0][0] + "|" + square7[1][0] + "|" + square7[2][0] + "| ";
